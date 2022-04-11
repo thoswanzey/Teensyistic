@@ -30,7 +30,3 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE     ONLY)
 
 # Optionally reduce compiler sanity check when cross-compiling.
 set(CMAKE_TRY_COMPILE_TARGET_TYPE         STATIC_LIBRARY)
-
-
-# additional libraries to link
-LIBS = -L$(LIBRARY_PATH) -larm_cortexM7lfsp_math -lm -lstdc++
