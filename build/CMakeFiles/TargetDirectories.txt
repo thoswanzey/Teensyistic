@@ -1,3 +1,0 @@
-/home/alt-astral/git/Teensyistic/build/CMakeFiles/rebuild_cache.dir
-/home/alt-astral/git/Teensyistic/build/CMakeFiles/edit_cache.dir
-/home/alt-astral/git/Teensyistic/build/CMakeFiles/teensyistic.elf.dir
