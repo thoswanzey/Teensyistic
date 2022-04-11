@@ -65,10 +65,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/thomas/Projects/build_teensy
+CMAKE_SOURCE_DIR = /home/alt-astral/git/Teensyistic
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/thomas/Projects/build_teensy/build
+CMAKE_BINARY_DIR = /home/alt-astral/git/Teensyistic/build
 
 # Utility rule file for run.
 
@@ -93,6 +93,6 @@ CMakeFiles/run.dir/clean:
 .PHONY : CMakeFiles/run.dir/clean
 
 CMakeFiles/run.dir/depend:
-	cd /home/thomas/Projects/build_teensy/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/thomas/Projects/build_teensy /home/thomas/Projects/build_teensy /home/thomas/Projects/build_teensy/build /home/thomas/Projects/build_teensy/build /home/thomas/Projects/build_teensy/build/CMakeFiles/run.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/alt-astral/git/Teensyistic/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/alt-astral/git/Teensyistic /home/alt-astral/git/Teensyistic /home/alt-astral/git/Teensyistic/build /home/alt-astral/git/Teensyistic/build /home/alt-astral/git/Teensyistic/build/CMakeFiles/run.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run.dir/depend
 

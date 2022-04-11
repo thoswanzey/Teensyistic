@@ -1,3 +1,3 @@
-/home/thomas/Projects/build_teensy/build/CMakeFiles/rebuild_cache.dir
-/home/thomas/Projects/build_teensy/build/CMakeFiles/edit_cache.dir
-/home/thomas/Projects/build_teensy/build/CMakeFiles/run.dir
+/home/alt-astral/git/Teensyistic/build/CMakeFiles/rebuild_cache.dir
+/home/alt-astral/git/Teensyistic/build/CMakeFiles/edit_cache.dir
+/home/alt-astral/git/Teensyistic/build/CMakeFiles/run.dir
