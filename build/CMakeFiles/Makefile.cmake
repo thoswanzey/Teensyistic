@@ -11,6 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.18.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.18.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.18.4/CMakeSystem.cmake"
+  "../toolchain.cmake"
   "/usr/share/cmake-3.18/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.18/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.18/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
@@ -25,11 +26,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.18/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.18/Modules/Compiler/GNU.cmake"
   "/usr/share/cmake-3.18/Modules/Internal/CMakeCheckCompilerFlag.cmake"
-  "/usr/share/cmake-3.18/Modules/Platform/Linux-GNU-C.cmake"
-  "/usr/share/cmake-3.18/Modules/Platform/Linux-GNU-CXX.cmake"
-  "/usr/share/cmake-3.18/Modules/Platform/Linux-GNU.cmake"
-  "/usr/share/cmake-3.18/Modules/Platform/Linux.cmake"
-  "/usr/share/cmake-3.18/Modules/Platform/UnixPaths.cmake"
+  "/usr/share/cmake-3.18/Modules/Platform/Generic.cmake"
   )
 
 # The corresponding makefile is:
@@ -45,5 +42,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/run.dir/DependInfo.cmake"
+  "CMakeFiles/teensyistic.elf.dir/DependInfo.cmake"
   )

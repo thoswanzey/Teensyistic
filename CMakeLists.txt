@@ -10,31 +10,30 @@ set(TEENSY_DIR "driver/teensy4")
 set(TEENSY_DIR_MAKEFILE "${TEENSY_DIR}/Makefile")
 
 
-# Extra cleanup
-file(GLOB OBJECT_FILES
-  "${TEENSY_DIR}/*.o"
-)
-
-file(GLOB MAKE_DEPENDENCIES
-  "${TEENSY_DIR}/*.d"
-)
-
-set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
-                         "${OBJECT_FILES}"
-                         "${MAKE_DEPENDENCIES}"
-                         "${TEENSY_DIR}/main.elf"
-                         "${TEENSY_DIR}/main.hex")
-
-
 # Specify our source files
 file(GLOB SRC
   "src/*.cpp"
+  "src/*.c"
   "${TEENSY_DIR}/*.cpp"
+  "${TEENSY_DIR}/*.c"
 )
 
-include_directories("${TEENSY_DIR}"
-    "src")
+list(APPEND sources
+  ${SRC}
+)
 
-add_executable(teensyistic ${SRC})
+include_directories(
+    "${TEENSY_DIR}"
+    "src"
+)
 
-# add_custom_target(run ALL COMMAND make -C ../${TEENSY_DIR} -f Makefile TARGET=main)
+set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
+  "teensyistic.hex"
+)
+
+add_executable(teensyistic.elf ${sources})
+
+add_custom_command(TARGET teensyistic.elf
+  POST_BUILD
+  COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom teensyistic.elf teensyistic.hex
+)
