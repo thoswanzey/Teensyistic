@@ -26,9 +26,15 @@ set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
                          "${TEENSY_DIR}/main.hex")
 
 
-# Specify our source directories
-add_subdirectory(${TEENSY_DIR})
-add_subdirectory(src)
+# Specify our source files
+file(GLOB SRC
+  "src/*.cpp"
+  "${TEENSY_DIR}/*.cpp"
+)
 
+include_directories("${TEENSY_DIR}"
+    "src")
 
-add_custom_target(run ALL COMMAND make -C ../${TEENSY_DIR} -f Makefile TARGET=main)
+add_executable(teensyistic ${SRC})
+
+# add_custom_target(run ALL COMMAND make -C ../${TEENSY_DIR} -f Makefile TARGET=main)
