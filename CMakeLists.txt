@@ -35,5 +35,10 @@ add_executable(teensyistic.elf ${sources})
 
 add_custom_command(TARGET teensyistic.elf
   POST_BUILD
+  COMMAND ${CMAKE_SIZE} ARGS teensyistic.elf
+)
+
+add_custom_command(TARGET teensyistic.elf
+  POST_BUILD
   COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom teensyistic.elf teensyistic.hex
 )
