@@ -149,6 +149,3 @@ endif
 
 # compiler generated dependency info
 -include $(OBJS:.o=.d)
-
-clean:
-	rm -f *.o *.d $(TARGET).elf $(TARGET).hex
