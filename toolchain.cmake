@@ -15,6 +15,8 @@ set(CMAKE_SIZE                      ${BAREMETAL_ARM_TOOLCHAIN_PATH}/arm-none-eab
 set(CMAKE_STRIP                     ${BAREMETAL_ARM_TOOLCHAIN_PATH}/arm-none-eabi-strip${CMAKE_EXECUTABLE_SUFFIX} CACHE INTERNAL "")
 
 set(LINKER_SCRIPT_DIR ${CMAKE_SOURCE_DIR}/driver/teensy4)
+set(LIBRARY_PATH      ${CMAKE_SOURCE_DIR}/driver/tools/arm/lib)
+
 # Use these lines for Teensy 4.0
 set(MCU "IMXRT1062")
 set(MCU_LD "${LINKER_SCRIPT_DIR}/imxrt1062.ld")
@@ -50,7 +52,6 @@ set(MCU_DEF "ARDUINO_TEENSY40")
 
 set(TEENSY_OPTIONS              "-DF_CPU=600000000 -DUSB_SERIAL -DLAYOUT_US_ENGLISH -DUSING_MAKEFILE -D__${MCU}__ -DARDUINO=10813 -DTEENSYDUINO=154 -D${MCU_DEF}")
 set(CPU_OPTIONS                 "-mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-d16 -mthumb")
-set(LIBRARY_PATH    ${CMAKE_SOURCE_DIR}/driver/tools/arm/lib)
 
 set(CMAKE_C_FLAGS               "-Wall -g -O2 ${CPU_OPTIONS} -MMD ${TEENSY_OPTIONS} -I. -ffunction-sections -fdata-sections")
 set(CMAKE_CXX_FLAGS             "${CMAKE_C_FLAGS} -std=gnu++14 -felide-constructors -fno-exceptions -fpermissive -fno-rtti -Wno-error=narrowing")

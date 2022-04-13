@@ -1,51 +1,58 @@
 cmake_minimum_required(VERSION 3.18.4)
 
+# Set compiler path, include toolchain parameters
 set(BAREMETAL_ARM_TOOLCHAIN_PATH /usr/bin)
 set(CMAKE_TOOLCHAIN_FILE toolchain.cmake)
 
 project(teensyistic LANGUAGES C CXX)
 
-set( CMAKE_VERBOSE_MAKEFILE on )
-
-set(TEENSY_DIR "driver/teensy4")
-set(TEENSY_DIR_MAKEFILE "${TEENSY_DIR}/Makefile")
+# Common directories
+set(SRC_FILES "${CMAKE_SOURCE_DIR}/src")
+set(BUILD_FILES "${CMAKE_SOURCE_DIR}/build")
+set(TEENSY_DRIVER_DIR "${CMAKE_SOURCE_DIR}/driver/teensy4")
 
 
 # Specify our source files
-file(GLOB SRC
-  "src/*.cpp"
-  "src/*.c"
-  "${TEENSY_DIR}/*.cpp"
-  "${TEENSY_DIR}/*.c"
+file(GLOB ${CMAKE_PROJECT_NAME}_src
+  "${SRC_FILES}/*.cpp"
+  "${SRC_FILES}/*.c"
+  "${TEENSY_DRIVER_DIR}/*.cpp"
+  "${TEENSY_DRIVER_DIR}/*.c"
 )
 
 include_directories(
-    "${TEENSY_DIR}"
-    "src"
+    "${TEENSY_DRIVER_DIR}"
+    "${SRC_FILES}"
 )
 
+# Clean up the hex file we created
 set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
-  "teensyistic.hex"
+  "${BUILD_DIR}/${CMAKE_PROJECT_NAME}.hex"
 )
 
-add_executable(teensyistic.elf ${SRC})
+# Compile the elf
+add_executable(${CMAKE_PROJECT_NAME}.elf ${${CMAKE_PROJECT_NAME}_src})
 
-add_custom_command(TARGET teensyistic.elf
+# Print executable size
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
   POST_BUILD
-  COMMAND ${CMAKE_SIZE} ARGS teensyistic.elf
+  COMMAND ${CMAKE_SIZE} ARGS ${CMAKE_PROJECT_NAME}.elf
 )
 
-add_custom_command(TARGET teensyistic.elf
+# Create the hex file
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
   POST_BUILD
-  COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom teensyistic.elf teensyistic.hex
+  COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex
 )
 
-add_custom_command(TARGET teensyistic.elf
+# Upload the hex file to the teensy
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
   POST_BUILD
-  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_post_compile ARGS -file=../build/teensyistic -path=${CMAKE_SOURCE_DIR}/build -tools=${CMAKE_SOURCE_DIR}/tools
+  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_post_compile ARGS -file=${BUILD_DIR}/${CMAKE_PROJECT_NAME} -path=${CMAKE_SOURCE_DIR}/build -tools=${CMAKE_SOURCE_DIR}/tools
 )
 
-add_custom_command(TARGET teensyistic.elf
+# Reboot teensy
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
   POST_BUILD
   COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_reboot
 )
