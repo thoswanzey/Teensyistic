@@ -6,6 +6,7 @@ set(CMAKE_TOOLCHAIN_FILE toolchain.cmake)
 project(teensyistic LANGUAGES C CXX)
 
 set( CMAKE_VERBOSE_MAKEFILE on )
+
 set(TEENSY_DIR "driver/teensy4")
 set(TEENSY_DIR_MAKEFILE "${TEENSY_DIR}/Makefile")
 
@@ -18,10 +19,6 @@ file(GLOB SRC
   "${TEENSY_DIR}/*.c"
 )
 
-list(APPEND sources
-  ${SRC}
-)
-
 include_directories(
     "${TEENSY_DIR}"
     "src"
@@ -31,7 +28,7 @@ set_property(DIRECTORY PROPERTY ADDITIONAL_CLEAN_FILES
   "teensyistic.hex"
 )
 
-add_executable(teensyistic.elf ${sources})
+add_executable(teensyistic.elf ${SRC})
 
 add_custom_command(TARGET teensyistic.elf
   POST_BUILD
@@ -41,4 +38,14 @@ add_custom_command(TARGET teensyistic.elf
 add_custom_command(TARGET teensyistic.elf
   POST_BUILD
   COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom teensyistic.elf teensyistic.hex
+)
+
+add_custom_command(TARGET teensyistic.elf
+  POST_BUILD
+  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_post_compile ARGS -file=../build/teensyistic -path=${CMAKE_SOURCE_DIR}/build -tools=${CMAKE_SOURCE_DIR}/tools
+)
+
+add_custom_command(TARGET teensyistic.elf
+  POST_BUILD
+  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_reboot
 )
