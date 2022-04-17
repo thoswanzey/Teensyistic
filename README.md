@@ -1,5 +1,5 @@
 ## Teensy 4.0 / 4.1 Build System
-Generic build system used as a base for my future projects, only linux suport for now. Tested on Pop!\_OS_.
+Generic build system used as a base for my future projects, only linux suport for now. Tested on Pop!\_OS.
 
 #### Usage:
 1. Set the project name in CMakeLists.txt.
