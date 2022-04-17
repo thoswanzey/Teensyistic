@@ -11,7 +11,6 @@ set(SRC_FILES "${CMAKE_SOURCE_DIR}/src")
 set(BUILD_FILES "${CMAKE_SOURCE_DIR}/build")
 set(TEENSY_DRIVER_DIR "${CMAKE_SOURCE_DIR}/driver/teensy4")
 
-
 # Specify our source files
 file(GLOB ${CMAKE_PROJECT_NAME}_src
   "${SRC_FILES}/*.cpp"
@@ -42,17 +41,11 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
 # Create the hex file
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
   POST_BUILD
-  COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex
+  COMMAND ${CMAKE_OBJCOPY} ARGS -O ihex -R .eeprom -R .fuse -R .lock -R .signature ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex
 )
 
 # Upload the hex file to the teensy
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
   POST_BUILD
-  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_post_compile ARGS -file=${BUILD_DIR}/${CMAKE_PROJECT_NAME} -path=${CMAKE_SOURCE_DIR}/build -tools=${CMAKE_SOURCE_DIR}/tools
-)
-
-# Reboot teensy
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME}.elf
-  POST_BUILD
-  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_reboot
+  COMMAND ${CMAKE_SOURCE_DIR}/tools/teensy_loader_cli ARGS --mcu=${MCU} -v -w ${CMAKE_PROJECT_NAME}.hex
 )
